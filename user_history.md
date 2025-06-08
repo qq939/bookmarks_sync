@@ -102,6 +102,34 @@
 - 验证脚本确认所有书签的path都是"Bookmarks Bar"，depth都是0
 - 生成的合并文件：`step3merged/merged_bookmarks_20250607_181129.json`
 
+---
+
+## 2025年6月8日 - checkChrome.py模糊搜索修复
+
+### 问题描述
+用户运行checkChrome.py时遇到FileNotFoundError错误，因为脚本中硬编码了特定日期的文件名，但实际文件名不匹配。
+
+### 解决方案
+1. **添加模糊搜索功能**：使用glob模块搜索chrome_bookmarks_*.json文件
+2. **自动选择最新文件**：使用os.path.getctime选择最新创建的文件
+3. **错误处理**：添加文件不存在的检查和提示
+
+### 修改的文件
+- `checkChrome.py`：
+  - 导入glob和os模块
+  - 使用glob.glob()进行模糊搜索
+  - 添加文件存在性检查
+  - 自动选择最新的Chrome书签文件
+  - 显示正在使用的文件路径
+
+### 运行结果
+- 成功找到并使用文件：chrome_bookmarks_20250608_144158.json
+- Chrome书签统计：
+  - Bookmarks Bar: 84个书签
+  - Other Bookmarks: 871个书签
+  - Mobile Bookmarks: 3个书签
+  - 总计: 958个书签
+
 ### 技术细节
 ```python
 # 标准化书签路径和深度
@@ -327,3 +355,28 @@ Chrome的958个书签包含了所有分类（书签栏、其他书签、移动�
   - 主要导入逻辑和备用导入逻辑中的成功对话框都添加了自动关闭功能
   - 对话框会在3秒后自动关闭，无需用户干预
 - **测试结果**：脚本现在能完全自动化运行并正常退出
+
+---
+
+## 2025年6月8日 - checkSafari.py模糊搜索修复
+
+### 问题描述
+用户要求对checkSafari.py也进行模糊搜索修复，避免硬编码特定日期的文件名。
+
+### 解决方案
+1. **添加模糊搜索功能**：使用glob模块搜索safari_bookmarks_*.json文件
+2. **自动选择最新文件**：使用os.path.getctime选择最新创建的文件
+3. **错误处理**：添加文件不存在的检查和提示
+
+### 修改的文件
+- `checkSafari.py`：
+  - 导入glob和os模块
+  - 使用glob.glob()进行模糊搜索
+  - 添加文件存在性检查
+  - 自动选择最新的Safari书签文件
+  - 显示正在使用的文件路径
+
+### 运行结果
+- 成功找到并使用文件：safari_bookmarks_20250608_144136.json
+- Safari书签统计：3756个书签
+- 所有书签都在根目录路径下
